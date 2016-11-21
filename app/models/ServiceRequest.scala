@@ -8,7 +8,8 @@ case class ServiceRequest (
     description: String,
     rating: Option[Int],
     creationDate: DateTime,
-    status: Option[Int]
+    status: Option[Int],
+    flatNumber: Option[Int] = None
 )
 
 object ServiceRequest extends SQLSyntaxSupport[ServiceRequest] {
@@ -66,6 +67,22 @@ object ServiceRequest extends SQLSyntaxSupport[ServiceRequest] {
            INNER JOIN ${RequestToFlat as rtf}
            ON ${sr.id} = ${rtf.requestId}
            WHERE ${rtf.flatId} = ${flatId}
+           """
+            .map(ServiceRequest(sr)).list().apply()
+    }
+
+    def findAllActive()
+                     (implicit session: DBSession = autoSession): List[ServiceRequest] = {
+        import RequestToFlat.rtf
+        import Flat.f
+        sql"""
+             SELECT ${sr.result.*}, ${f.flatNumber}
+             FROM ${ServiceRequest as sr}
+             INNER JOIN ${RequestToFlat as rtf}
+             ON ${sr.id} = ${rtf.requestId}
+             INNER JOIN ${Flat as f}
+             ON ${rtf.flatId} = ${f.flatId}
+             WHERE ${sr.status} <= 2
            """
             .map(ServiceRequest(sr)).list().apply()
     }
