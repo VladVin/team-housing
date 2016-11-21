@@ -30,9 +30,43 @@
                                 <!-- ko if: status() === 4 -->Done<!-- /ko -->
                             </td>
                             <td data-bind="text: nextVisitDate"></td>
-                            <td data-bind="text: totalCost"></td>
+                            <td><span data-bind="text: totalCost"></span>$</td>
                             <td data-bind="text: creationDate"></td>
-                            <td data-bind="text: rating"></td>
+                            <td class="form-group">
+                                <label class="col-md-3 control-label" for="rating"></label>
+                                <div class="col-md-10 input-group">
+                                    <input id="rate1" class="icon-checkbox" type="radio" value="1" name="rating"
+                                    data-bind="checked: rating, checkedValue: 1"/>
+                                    <label for="rate1">
+                                        <span class='glyphicon glyphicon-star unchecked text-muted'></span>
+                                        <span class='glyphicon glyphicon-star checked text-danger'></span>
+                                    </label>
+                                    <input id="rate2" class="icon-checkbox" type="radio" value="2" name="rating"
+                                    data-bind="checked: rating, checkedValue: 2"/>
+                                    <label for="rate2">
+                                        <span class='glyphicon glyphicon-star unchecked text-muted'></span>
+                                        <span class='glyphicon glyphicon-star checked text-danger'></span>
+                                    </label>
+                                    <input id="rate3" class="icon-checkbox" type="radio" value="3" name="rating"
+                                    data-bind="checked: rating, checkedValue: 3"/>
+                                    <label for="rate3">
+                                        <span class='glyphicon glyphicon-star unchecked text-muted'></span>
+                                        <span class='glyphicon glyphicon-star checked text-danger'></span>
+                                    </label>
+                                    <input id="rate4" class="icon-checkbox" type="radio" value="4" name="rating"
+                                    data-bind="checked: rating, checkedValue: 4"/>
+                                    <label for="rate4">
+                                        <span class='glyphicon glyphicon-star unchecked text-muted'></span>
+                                        <span class='glyphicon glyphicon-star checked text-danger'></span>
+                                    </label>
+                                    <input id="rate5" class="icon-checkbox" type="radio" value="5" name="rating"
+                                    data-bind="checked: rating, checkedValue: 5"/>
+                                    <label for="rate5">
+                                        <span class='glyphicon glyphicon-star unchecked text-muted'></span>
+                                        <span class='glyphicon glyphicon-star checked text-danger'></span>
+                                    </label>
+                                </div>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
