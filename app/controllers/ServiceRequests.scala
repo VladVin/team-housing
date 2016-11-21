@@ -37,18 +37,10 @@ object ServiceRequestViewModel {
         sreqs = sreqs.map(ServiceRequestViewModel.apply),
         flatNumber = flatNumber
     )
-
-    def apply(sr: ServiceRequest, flatNumber: Int): RequestInfo = RequestInfo(
-        sreq = apply(sr),
-        flatNumber = flatNumber
-    )
 }
 
 case class RequestsInfo(sreqs: Seq[ServiceRequestViewModel],
                         flatNumber: Int)
-
-case class RequestInfo(sreq: ServiceRequestViewModel,
-                       flatNumber: Int)
 
 @Singleton
 class ServiceRequests @Inject()(json4s: Json4s) extends Controller {
@@ -94,7 +86,7 @@ class ServiceRequests @Inject()(json4s: Json4s) extends Controller {
       }
 
     def all(flatId: Int) = Action {
-        val flatNumber = Flat.findById(flatId.toInt)
+        val flatNumber = Flat.findById(flatId)
             .map(f => f.flatNumber).getOrElse(-1)
 
         val requests = ServiceRequest.findAllForFlat(flatId)
@@ -112,10 +104,13 @@ class ServiceRequests @Inject()(json4s: Json4s) extends Controller {
         ))
     }
 
-    def all() = Action {
-        val requestInfoList = ServiceRequest.findAllActive()
-            .map(sr => ServiceRequestViewModel(sr, sr.flatNumber.getOrElse(-1)))
-        
-        Ok(Extraction.decompose(requestInfoList))
+    def allActive() = Action {
+        Ok(Extraction.decompose(
+            Flat.all().map(f =>
+                ServiceRequestViewModel(
+                    ServiceRequest.findAllActiveForFlat(f.flatId),
+                    f.flatNumber)
+            )
+        ))
     }
 }

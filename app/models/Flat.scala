@@ -33,6 +33,15 @@ object Flat extends SQLSyntaxSupport[Flat] {
 
   val f = Flat.syntax("f")
 
+  def all()
+         (implicit session: DBSession = autoSession): List[Flat] = {
+    sql"""
+         SELECT ${f.result.*}
+         FROM ${Flat as f}
+       """
+        .map(Flat(f)).list().apply()
+  }
+
   def findById(flatId: Int)(implicit session: DBSession = autoSession): Option[Flat] =
     sql"""select ${f.result.*} from ${Flat as f}
           where ${f.flatId} = ${flatId}
