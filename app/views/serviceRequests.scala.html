@@ -18,14 +18,14 @@
                 <tbody data-bind="foreach: serviceRequests">
                     <tr>
                         <td>
-                            <a data-bind="text: description, attr: {href: '#/serviceRequests/'+id}"></a>
+                            <a data-bind="text: description, attr: {href: '#/serviceRequests/getInfo/'+id}"></a>
                         </td>
                         <td>
                             <!-- ko if: status() === 0 -->Open<!-- /ko -->
                             <!-- ko if: status() === 1 -->In progress<!-- /ko -->
-                            <!-- ko if: status() === 2 -->Done<!-- /ko -->
+                            <!-- ko if: status() === 2 -->Idle<!-- /ko -->
                             <!-- ko if: status() === 3 -->Closed<!-- /ko -->
-                            <!-- ko if: status() === 4 -->Idle<!-- /ko -->
+                            <!-- ko if: status() === 4 -->Done<!-- /ko -->
                         </td>
                         <td data-bind="text: nextVisitDate"></td>
                         <td data-bind="text: totalCost"></td>

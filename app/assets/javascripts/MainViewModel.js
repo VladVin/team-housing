@@ -75,7 +75,7 @@ var MainViewModel = function() {
             });
         });
 
-        this.get('#/serviceRequests/:requestId', function() {
+        this.get('#/serviceRequests/getInfo/:requestId', function() {
             var requestId = this.params['requestId'];
             var isEditable = true; //check if logined user is admin
             var personId = 1;
@@ -91,11 +91,22 @@ var MainViewModel = function() {
                 })
         });
 
-        this.get('#/serviceRequests', function() {
-            $.get('/serviceRequests/byFlatId/1').then(function (requestsInfo) {
+        this.get('#/serviceRequests/forFlat/:flatId', function() {
+            var flatId = this.params['flatId'];
+            $.get('/serviceRequests/byFlatId/'+ flatId).then(function (requestsInfo) {
                 var viewModel = new ServiceRequestsViewModel(requestsInfo);
                 swapTemplate({
                     name: 'service-requests-template',
+                    model: viewModel
+                })
+            })
+        });
+
+        this.get('#/serviceRequests/allActive', function() {
+            $.get('/serviceRequests/allActive').then(function (requestsInfoList) {
+                var viewModel = new ServiceRequestsAdminViewModel(requestsInfoList);
+                swapTemplate({
+                    name: 'service-requests-admin-template',
                     model: viewModel
                 })
             })

@@ -32,3 +32,4 @@ GET     /assets/*file                       controllers.Assets.versioned(path="/
 GET     /history/byFlatId/:flatId           controllers.History.getMetersHistory(flatId: Int)
 
 GET     /serviceRequests/byFlatId/:flatId   controllers.ServiceRequests.all(flatId : Int)
+GET     /serviceRequests/allActive          controllers.ServiceRequests.allActive()

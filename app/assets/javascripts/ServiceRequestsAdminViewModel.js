@@ -8,17 +8,20 @@ var ServiceRequestsAdminViewModel = function (requestsInfoList) {
     self.requestsInfoList = ko.observable(requestsInfoList
         .map(function (ri) {
             return {
-                flatNumber: ri.flatNumber,
-                serviceRequests: ri.sreqs
+                flatNumber: ko.observable(ri.flatNumber),
+                serviceRequests: ko.observableArray(ri.sreqs
                     .map(function (sr) {
                         return {
-                            description: sr.description,
-                            nextVisitDate: sr.nextVisitDate,
-                            totalCost: sr.totalCost,
-                            creationDate: sr.creationDate,
-                            rating: sr.rating
+                            id: sr.id,
+                            description: ko.observable(sr.description),
+                            status: ko.observable(sr.status),
+                            nextVisitDate: ko.observable(moment(sr.nextVisitDate).format('MMM Do YYYY')),
+                            totalCost: ko.observable(sr.totalCost),
+                            creationDate: ko.observable(moment(sr.creationDate).format('MMM Do YYYY')),
+                            rating: ko.observable(sr.rating)
                         }
                     })
+                )
             }
         })
     )

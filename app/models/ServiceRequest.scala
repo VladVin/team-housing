@@ -8,7 +8,7 @@ case class ServiceRequest (
     description: String,
     rating: Option[Int],
     creationDate: DateTime,
-    status: Option[Int],
+    status: Option[Int]
 )
 
 object ServiceRequest extends SQLSyntaxSupport[ServiceRequest] {
