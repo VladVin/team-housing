@@ -1,0 +1,43 @@
+<script type="text/html" id="service-requests-admin-template">
+    <div id="requestsInfoList">
+        <!-- ko foreach: requestsInfoList -->
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Flat #<span data-bind="text: flatNumber"></span></h3>
+            </div>
+            <<div class="panel-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Description</th>
+                            <th>Status</th>
+                            <th>Next visit date</th>
+                            <th>Total cost</th>
+                            <th>Creation date</th>
+                            <th>Rating</th>
+                        </tr>
+                    </thead>
+                    <tbody data-bind="foreach: serviceRequests">
+                        <tr>
+                            <td>
+                                <a data-bind="text: description, attr: {href: '#/serviceRequests/'+id}"></a>
+                            </td>
+                            <td>
+                                <!-- ko if: status() === 0 -->Open<!-- /ko -->
+                                <!-- ko if: status() === 1 -->In progress<!-- /ko -->
+                                <!-- ko if: status() === 2 -->Done<!-- /ko -->
+                                <!-- ko if: status() === 3 -->Closed<!-- /ko -->
+                                <!-- ko if: status() === 4 -->Idle<!-- /ko -->
+                            </td>
+                            <td data-bind="text: nextVisitDate"></td>
+                            <td data-bind="text: totalCost"></td>
+                            <td data-bind="text: creationDate"></td>
+                            <td data-bind="text: rating"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- /ko -->
+    </div>
+</script>
